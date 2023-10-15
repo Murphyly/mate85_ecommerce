@@ -3,6 +3,7 @@ import { prisma } from "@/utils/prisma"
 import { product_categories } from "@/utils/sampledata"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { storage } from '../../../firebase';
 
 async function createProduct(data) {
     const newProduct = await prisma.product.create({
@@ -16,6 +17,19 @@ async function createProduct(data) {
     const productId = newProduct.id;
 
     redirect(`/admin/products/${productId}/productsItem/add`)
+}
+
+async function handleImageUpload(event) {
+    const file = event.target.files[0];
+    const storageRef = storage.ref();
+    const fileRef = storageRef.child(file.name);
+  
+    try {
+      await fileRef.put(file);
+      console.log('Imagem enviada com sucesso.');
+    } catch (error) {
+      console.error('Erro ao enviar a imagem:', error);
+    }
 }
 
 async function createProductItem(data) {
