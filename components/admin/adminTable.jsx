@@ -2,6 +2,15 @@
 import Link from 'next/link'
 import { SearchProduct } from '@/components/SearchProduct'
 import { useEffect, useState } from 'react'
+import {
+	Card,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeaderCell,
+	TableRow,
+} from '@tremor/react'
 
 // Adicionar server actions aqui para editar e deletar
 export function AdminTable(props) {
@@ -25,66 +34,68 @@ export function AdminTable(props) {
 	}, [props.data])
 
 	return (
-		<div className="flex flex-col items-center justify-center gap-4">
-			{props.hasSearchBar && (
-				<SearchProduct
-					placeholder="Pesquisa pelo nome"
-					filterValue={filterValue}
-					setFilterValue={setFilterValue}
-					className="w-3"
-				/>
-			)}
+		<main className="p-12 w-full">
+			<Card>
+				{props.hasSearchBar && (
+					<SearchProduct
+						placeholder="Pesquisa pelo nome"
+						filterValue={filterValue}
+						setFilterValue={setFilterValue}
+						className="w-3"
+					/>
+				)}
 
-			<div className="bg-white p-8 text-zinc-700 border-solid rounded-lg h-fit">
-				<h1 className="text-2xl font-bold mb-4 border-b-zinc-600 border-b">
-					{props.title}
-				</h1>
-				<table className="min-w-full border-collapse border border-zinc-300 rounded-lg overflow-hidden">
-					<thead>
-						<tr className="bg-gray-100 text-black">
-							{props.headers.map((header) => {
-								return (
-									<th key={header} className="border p-4">
-										{header}
-									</th>
-								)
-							})}
-						</tr>
-					</thead>
+				<div className="bg-white text-zinc-700 border-solid rounded-lg h-fit w-full mt-4">
+					<h1 className="text-2xl font-bold mb-4 border-b-zinc-600 border-b">
+						{props.title}
+					</h1>
+					<Table className="mt-6">
+						<TableHead>
+							<TableRow>
+								{props.headers.map((header) => {
+									return (
+										<TableHeaderCell key={header}>
+											{header}
+										</TableHeaderCell>
+									)
+								})}
+							</TableRow>
+						</TableHead>
 
-					<tbody>
-						{propsData.map((row, rowIndex) => (
-							<tr key={rowIndex}>
-								{Object.keys(row).map((key) => (
-									<td key={key} className="border p-4">
-										{row[key]}
-									</td>
-								))}
-								<td className="border p-4">
-									{props.actions.map((action, index) => (
-										<Link
-											key={action.name + '-' + index}
-											href={action.dest.replace('$1', row.id)}
-										>
-											<button
-												className={
-													'bg-' +
-													action.color +
-													'-500 hover:bg-' +
-													action.color +
-													'-700 text-zin-900 font-bold py-2 px-4 mr-2'
-												}
-											>
-												{action.name}
-											</button>
-										</Link>
+						<TableBody>
+							{propsData.map((row, rowIndex) => (
+								<TableRow key={rowIndex}>
+									{Object.keys(row).map((key) => (
+										<TableCell key={key} className="text-right">
+											{row[key]}
+										</TableCell>
 									))}
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			</div>
-		</div>
+									<TableCell className="text-right">
+										{props.actions.map((action, index) => (
+											<Link
+												key={action.name + '-' + index}
+												href={action.dest.replace('$1', row.id)}
+											>
+												<button
+													className={
+														'bg-' +
+														action.color +
+														'-500 hover:bg-' +
+														action.color +
+														'-700 text-zin-900 font-bold py-2 px-4 mr-2'
+													}
+												>
+													{action.name}
+												</button>
+											</Link>
+										))}
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</div>
+			</Card>
+		</main>
 	)
 }

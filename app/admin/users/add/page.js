@@ -43,7 +43,7 @@ export default function AddEditUser() {
   }
   ];
   return (
-    <div className="flex justify-center w-full items-center">
+    <div className="flex justify-center w-full items-center p-12">
       <AdminForm formTitle="Adicionar Usuário" action={dummyFunction} fields={fields} buttonLabel="Criar Usuário" />
     </div>
   )

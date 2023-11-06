@@ -33,13 +33,11 @@ export default async function AddProduct() {
 	)
 
 	return (
-		<div className="flex justify-center w-full items-center">
-			<AdminForm
-				formTitle="Adicionar Produto"
-				action={createProduct}
-				fields={fieldsProduct}
-				buttonLabel="Adicionar"
-			/>
-		</div>
+		<AdminForm
+			formTitle="Adicionar Produto"
+			action={createProduct}
+			fields={fieldsProduct}
+			buttonLabel="Adicionar"
+		/>
 	)
 }
