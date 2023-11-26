@@ -21,7 +21,6 @@ export const CartItem = ({ item }) => {
   };
 
   function addQty() {
-    console.log(item.item.amount)
     handleQuantityChange(Math.min(qty + 1, item.item.amount))
     setQty(Math.min(qty + 1, item.item.amount))
 

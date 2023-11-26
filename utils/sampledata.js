@@ -431,6 +431,12 @@ export var users_address = [
 
 export var users = [
   {
+    "id": "ff8eda38-a707-4013-91cb-c5e514dce983",
+    "name": "Danilo Andrade",
+    "email": "andrade20danilo@gmail.com",
+    "role": "admin"
+  },
+  {
     "id": "ff8eda38-a707-4013-91cb-c5e514dce984",
     "name": "Arleyne Paeckmeyer",
     "email": "queilahabreu@gmail.com",

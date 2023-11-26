@@ -9,7 +9,6 @@ export function SearchProduct({ placeholder, filterValue, setFilterValue }) {
 	const handleKeyPress = (e) => {
 		if (e.key === 'Enter') {
 			setSearchValue(e.target.value)
-			console.log(e.target.value)
 		}
 	}
 

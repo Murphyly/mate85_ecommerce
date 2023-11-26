@@ -10,7 +10,7 @@ export default function Filtros({ produto }) {
 	const [sku, setSku] = useState()
 	const [price, setPrice] = useState()
     const [enable, setEnable] = useState()
-	const [stock, setStock] = useState()
+	const [stock, setStock] = useState(1)
 	const router = useRouter()
 
 	useEffect(() => {
@@ -104,7 +104,7 @@ export default function Filtros({ produto }) {
 				<button onClick={handleClick} disabled={enable ? true : false} className="border-2 border-black bg-black text-white rounded-full hover:bg-transparent hover:text-black duration-300 w-auto flex-grow py-2 px-8 disabled:text-black disabled:border-zinc-300 disabled:bg-zinc-300">
                     {enable && (
                         <>
-                            Tamanho não disponível
+                            Indisponível
                         </>
                     )}
                     {!enable && (

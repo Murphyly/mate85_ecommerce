@@ -7,10 +7,12 @@ import Image from 'next/image'
 import { useEffect, useState, useTransition } from 'react'
 import { getNameDB } from '@/app/(website)/actionsSettings'
 import NavbarCart from './navbarCart'
+import { useSession } from 'next-auth/react'
 
 export default function Navbar() {
 	const [name, setName] = useState('')
 	const [isPending, startTransition] = useTransition()
+	const { data: session, status } = useSession()
 
 	async function getName() {
 		if (!isPending)
@@ -53,7 +55,7 @@ export default function Navbar() {
 						</Link>
 					</div>
 					<div>
-						<Link href = "/user"><UserCircle2 className="text-xl cursor-pointer" /></Link>
+					<Link href = "/user" title={status=== 'authenticated' ? "Olá " + session?.user?.name : ''}><UserCircle2 className="text-xl cursor-pointer" /></Link>
 					</div>
 				</div>
 			</div>

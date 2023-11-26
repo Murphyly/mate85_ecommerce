@@ -9,7 +9,6 @@ import { AdminForm } from '@/components/admin/adminForm'
 import EditableTable from '@/components/admin/editableTable/editableTable'
 
 export default async function AddEditCategories({ params }) {
-	console.log(params)
 	const productCategories = await queryAllProductCategories(params.id)
 
 	const headers = ['Id', 'Categoria', 'Ação']

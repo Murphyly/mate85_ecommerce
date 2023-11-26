@@ -11,7 +11,6 @@ export default function Footer() {
 
 	async function getContact() {
 		const response = await getContactDB()
-		console.log('🚀 ~ file: footer.jsx:14 ~ getContact ~ response:', response)
 
 		if(response.length > 0){
 			

@@ -8,6 +8,7 @@ import { getHidePricesDB } from './actionsSettings'
 import { ref, getDownloadURL, list } from "@firebase/storage";
 import { storage } from "@/firebase";
 
+<<<<<<< HEAD
 export default function Home() {
 	const [firstImageUrl, setFirstImageUrl] = useState([]);
 	const [isPending,startTransition] = useTransition();
@@ -72,6 +73,57 @@ export default function Home() {
 				  />
 				</Link>
 			  ))}
+=======
+export default async function Home() {
+	const products = await prisma.product.findMany({
+		include: {
+			product_item: {
+				select: {
+					price: true,
+					amount: true
+				}
+			}
+		}
+	})
+	const hidePrices = await getHidePricesDB()
+	if (hidePrices.value !== "true")
+		products.forEach(product => {
+			let max = 0, min = 999999999999
+			product.product_item?.forEach(item => {
+				if (item.amount > 0) {
+					max = Math.max(max, item.price)
+					min = Math.min(min, item.price)
+				}
+			});
+			if (max == min)
+				product.price = "R$" + max.toFixed(2)
+			else if (max != 0)
+				product.price = "R$" + min.toFixed(2) + " - R$" + max.toFixed(2)
+			else
+				product.price = "Indisponível"
+		})
+
+	return (
+		<main className="px-8 w-full flex py-16">
+			<Sidebar />
+
+			<div className="min-h-screen flex flex-col items-center justify-start gap-16">
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-12 gap-x-8">
+					{products.map((product) => {
+						return (
+							<Link key={product.id} href={'/product/' + product.id}>
+								<Card
+									key={product.id}
+									name={product.name}
+									image={`https://picsum.photos/id/${product.id}/200`}
+									price={hidePrices.value === "true" ? null : product.price}
+									rating={product.rating}
+								/>
+							</Link>
+						)
+					})}
+				</div>
+>>>>>>> 566cff375dc9ad00c5e5aed91dbc5b6cb5843ecd
 			</div>
 		  </div>
 		</main>

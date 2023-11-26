@@ -21,7 +21,7 @@ export default function Card(props) {
       )}
       {
         props.price && (
-          <p className="text-gray-700 text-lg">R${props.price.toFixed(2)}</p>
+          <p className="text-gray-700 text-sm">{typeof props.price.toFixed !== 'undefined' ? "R$" + props.price.toFixed(2) : props.price }</p>
         )
       }
     </div>

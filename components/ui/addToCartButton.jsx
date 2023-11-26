@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 export default function AddToCartButton({ sku, produto }) {
   const { addToCart } = useCart();
   function handleClick() {
-    console.log("🚀 ~ file: addToCartButton.jsx:17 ~ handleClick ~ sku:", sku)
     if (!sku)
       toast.error("Selecione um tamanho primeiro")
     else
